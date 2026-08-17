@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: backend
+  namespace: three-tier
+
+spec:
+
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: backend
+
+  template:
+
+    metadata:
+      labels:
+        app: backend
+
+    spec:
+
+      containers:
+
+      - name: backend
+
+        image: madhavkotak23/three-tier-k8:backend-v1
+
+        ports:
+
+        - containerPort: 5000
+
+        envFrom:
+
+        - configMapRef:
+            name: app-config
+
+        resources:
+
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+
+        startupProbe:
+
+          httpGet:
+            path: /
+            port: 5000
+
+          failureThreshold: 30
+          periodSeconds: 5
+
+        readinessProbe:
+
+          httpGet:
+            path: /
+            port: 5000
+
+          initialDelaySeconds: 10
+
+        livenessProbe:
+
+          httpGet:
+            path: /
+            port: 5000
+
+          initialDelaySeconds: 20

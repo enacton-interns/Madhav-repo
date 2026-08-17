@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: frontend
+  namespace: three-tier
+
+spec:
+
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: frontend
+
+  template:
+
+    metadata:
+      labels:
+        app: frontend
+
+    spec:
+
+      containers:
+
+      - name: frontend
+
+        image: madhavkotak23/three-tier-k8:frontend-v1
+
+        ports:
+
+        - containerPort: 80
+
+        envFrom:
+
+        - configMapRef:
+            name: app-config
+
+        resources:
+
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+
+          limits:
+            cpu: "250m"
+            memory: "256Mi"
+
+        startupProbe:
+
+          httpGet:
+            path: /
+            port: 80
+
+          failureThreshold: 30
+          periodSeconds: 5
+
+        readinessProbe:
+
+          httpGet:
+            path: /
+            port: 80
+
+          initialDelaySeconds: 10
+
+        livenessProbe:
+
+          httpGet:
+            path: /
+            port: 80
+
+          initialDelaySeconds: 20
