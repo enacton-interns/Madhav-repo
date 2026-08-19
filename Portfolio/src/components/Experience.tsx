@@ -2,165 +2,144 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, CheckCircle2, GraduationCap, Award } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, CheckCircle2, Award, Terminal } from 'lucide-react';
 import { PORTFOLIO_DATA, ExperienceItem } from '@/data/portfolioData';
+
+/* ─────────────────────────────────────────────
+   Animation variants for timeline items
+   ───────────────────────────────────────────── */
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: 'easeOut' as const,
+    },
+  },
+};
 
 export const Experience: React.FC = () => {
   const { experience } = PORTFOLIO_DATA;
 
   return (
     <section id="experience" className="relative py-24 z-10 border-t border-slate-900 bg-slate-950/40">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Section Header */}
-        <div className="flex flex-col space-y-2 mb-12">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        {/* ── Section Header ── */}
+        <div className="flex flex-col space-y-2 mb-16">
           <div className="flex items-center space-x-2 text-xs font-mono text-indigo-400">
             <Briefcase className="w-4 h-4" />
-            <span>// WORK HISTORY & TRACK RECORD</span>
+            <span>// PROFESSIONAL TIMELINE</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">
-            Professional experience & achievements.
+            Mission Log.
           </h2>
+          <p className="text-sm text-slate-400 max-w-xl">
+            A chronological timeline of engineering roles, core projects, education, and technical achievements.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Vertical Timeline */}
-          <div className="lg:col-span-8 relative space-y-8 pl-6 sm:pl-8 border-l border-slate-800">
-            {experience.map((item: ExperienceItem, idx: number) => (
+        {/* ── Vertical Timeline Container ── */}
+        <div className="relative pl-6 sm:pl-10">
+          {/* Thin Vertical Timeline Line */}
+          <div className="absolute left-[9px] sm:left-[15px] top-3 bottom-3 w-px bg-gradient-to-b from-indigo-500/50 via-slate-800 to-slate-900" />
+
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-60px' }}
+            variants={containerVariants}
+            className="space-y-12"
+          >
+            {experience.map((item: ExperienceItem) => (
               <motion.div
                 key={item.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.15 }}
+                variants={itemVariants}
                 className="relative group"
               >
-                {/* Timeline node icon */}
-                <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full bg-slate-900 border-2 border-indigo-500 flex items-center justify-center text-indigo-400 shadow-md shadow-indigo-950/60 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all">
-                  <div className="w-1.5 h-1.5 rounded-full bg-current" />
+                {/* ── Milestone Node Dot (Illuminates on View / Hover) ── */}
+                <div className="absolute -left-[24px] sm:-left-[33px] top-1.5 w-4 h-4 rounded-full bg-slate-950 border-2 border-indigo-500/60 flex items-center justify-center group-hover:border-indigo-400 group-hover:scale-125 group-hover:shadow-[0_0_12px_rgba(129,140,248,0.8)] transition-all duration-300">
+                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 group-hover:bg-cyan-300 transition-colors" />
                 </div>
 
-                <div className="subtle-glow-box rounded-3xl p-6 space-y-4">
-                  {/* Role Header */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800/80">
+                {/* ── Content Card ── */}
+                <div className="subtle-glow-box rounded-2xl p-6 sm:p-8 space-y-5 border border-slate-800/80 hover:border-indigo-500/30 transition-all duration-300">
+                  {/* Top Metadata Row */}
+                  <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800/60">
                     <div>
-                      <h3 className="text-lg font-bold text-slate-100 group-hover:text-indigo-300 transition-colors">
+                      <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-indigo-950/70 border border-indigo-800/40 text-indigo-300 font-semibold">
+                        {item.company}
+                      </span>
+                      <h3 className="text-xl font-extrabold text-slate-100 mt-2">
                         {item.role}
                       </h3>
-                      <div className="text-sm font-medium text-slate-300 flex items-center space-x-2">
-                        <span>{item.company}</span>
-                        <span className="text-slate-600">•</span>
-                        <span className="text-xs font-mono text-slate-400 flex items-center">
-                          <MapPin className="w-3 h-3 mr-1 text-slate-500" />
-                          {item.location}
-                        </span>
-                      </div>
                     </div>
 
-                    <div className="inline-flex items-center space-x-1.5 text-xs font-mono text-indigo-300 bg-indigo-950/80 border border-indigo-800/60 px-3 py-1 rounded-full self-start sm:self-center">
-                      <Calendar className="w-3.5 h-3.5" />
-                      <span>{item.period}</span>
+                    <div className="flex items-center space-x-3 text-xs font-mono text-slate-400">
+                      <div className="flex items-center space-x-1">
+                        <Calendar className="w-3.5 h-3.5 text-indigo-400" />
+                        <span>{item.period}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <MapPin className="w-3.5 h-3.5 text-slate-500" />
+                        <span>{item.location}</span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Summary */}
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  {/* High Level Summary Description */}
+                  <p className="text-sm text-slate-300 leading-relaxed font-normal">
                     {item.description}
                   </p>
 
-                  {/* Key Achievements Bullet points */}
-                  <div className="space-y-2 pt-1">
-                    <div className="text-xs font-mono text-slate-400 uppercase tracking-wider">
-                      Key Impact & Achievements
+                  {/* Key Contributions & Achievements */}
+                  {item.achievements && item.achievements.length > 0 && (
+                    <div className="space-y-2.5 pt-1">
+                      <div className="text-xs font-mono text-slate-500 uppercase tracking-wider flex items-center space-x-1.5">
+                        <Award className="w-3.5 h-3.5 text-indigo-400" />
+                        <span>Key Achievements & Impact</span>
+                      </div>
+                      <ul className="space-y-2">
+                        {item.achievements.map((ach, idx) => (
+                          <li key={idx} className="flex items-start space-x-2.5">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400/90 mt-0.5 shrink-0" />
+                            <span className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                              {ach}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <ul className="space-y-2">
-                      {item.achievements.map((achievement, aIdx) => (
-                        <li key={aIdx} className="flex items-start space-x-2 text-xs text-slate-300 leading-relaxed">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                          <span>{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  )}
 
-                  {/* Skills Tags */}
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {item.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-slate-950 border border-slate-800/80 text-slate-400"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                  {/* Technologies Stack Tags */}
+                  {item.skills && item.skills.length > 0 && (
+                    <div className="pt-3 flex flex-wrap items-center gap-1.5">
+                      <Terminal className="w-3.5 h-3.5 text-slate-500 mr-1" />
+                      {item.skills.map((skill) => (
+                        <span
+                          key={skill}
+                          className="px-2.5 py-1 text-[11px] font-mono rounded bg-slate-900 border border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-300 transition-colors"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}
-          </div>
-
-          {/* Education & Credentials Side Cards */}
-          <div className="lg:col-span-4 space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="subtle-glow-box rounded-3xl p-6 space-y-4"
-            >
-              <div className="flex items-center space-x-3 pb-3 border-b border-slate-800">
-                <div className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-indigo-400">
-                  <GraduationCap className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-100">Education</h3>
-                  <p className="text-xs font-mono text-slate-400">Academic Background</p>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <div>
-                  <div className="text-sm font-semibold text-slate-200">
-                    B.S. in Computer Science
-                  </div>
-                  <div className="text-xs text-slate-400">University of California</div>
-                  <div className="text-xs font-mono text-indigo-400 mt-0.5">2016 — 2020</div>
-                </div>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Focus on Data Structures, Distributed Systems, Software Engineering Principles, and Database Systems.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="subtle-glow-box rounded-3xl p-6 space-y-4"
-            >
-              <div className="flex items-center space-x-3 pb-3 border-b border-slate-800">
-                <div className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-indigo-400">
-                  <Award className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-sm font-bold text-slate-100">Certifications</h3>
-                  <p className="text-xs font-mono text-slate-400">Industry Credentials</p>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
-                  <div className="text-xs font-bold text-slate-200">AWS Certified Solutions Architect</div>
-                  <div className="text-[11px] font-mono text-indigo-400">Associate Level • Issued 2023</div>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
-                  <div className="text-xs font-bold text-slate-200">Certified Kubernetes Application Developer (CKAD)</div>
-                  <div className="text-[11px] font-mono text-indigo-400">Linux Foundation • Issued 2024</div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
