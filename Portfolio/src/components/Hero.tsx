@@ -122,7 +122,7 @@ export const Hero: React.FC<HeroProps> = ({ isRevealed = true }) => {
 
             <div className="flex items-center space-x-2 text-xs font-mono text-slate-400">
               <Terminal className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Kubernetes • Docker • AWS • Terraform • Go • TypeScript</span>
+              <span>Kubernetes • Docker • AWS • Terraform • Git / GitHub</span>
             </div>
           </motion.div>
 

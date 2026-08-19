@@ -133,15 +133,6 @@ export const Contact: React.FC = () => {
                   <LinkedinIcon className="w-4 h-4 text-indigo-400" />
                   <span>LinkedIn</span>
                 </a>
-                <a
-                  href={personal.socials.twitter}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-1 flex items-center justify-center space-x-2 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-all text-xs font-medium"
-                >
-                  <TwitterIcon className="w-4 h-4 text-cyan-400" />
-                  <span>Twitter</span>
-                </a>
               </div>
             </div>
           </motion.div>
