@@ -11,7 +11,6 @@ import { About } from '@/components/About';
 import { Skills } from '@/components/Skills';
 import { Projects } from '@/components/Projects';
 import { Experience } from '@/components/Experience';
-import { SpaceOverview } from '@/components/SpaceOverview';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { ScrollRocket } from '@/components/ScrollRocket';
@@ -53,7 +52,6 @@ export default function Home() {
         <Skills />
         <Projects />
         <Experience />
-        <SpaceOverview />
         <Contact />
         <Footer />
       </div>

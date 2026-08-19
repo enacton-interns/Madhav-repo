@@ -64,7 +64,7 @@ export const PORTFOLIO_DATA = {
       'Top 45 out of 720+ teams at Vadodara Hackathon 6.0 (2025)',
       'Solved 200+ problems on LeetCode',
     ],
-    resumeUrl: '#contact',
+    resumeUrl: '/Madhav_Kotak_Resume.pdf',
     socials: {
       github: 'https://github.com/madhavkotak',
       linkedin: 'https://linkedin.com/in/madhavkotak',

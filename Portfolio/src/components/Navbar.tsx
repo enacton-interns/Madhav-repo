@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, FileText, Send, Sparkles } from 'lucide-react';
+import { Menu, X, FileText, Send } from 'lucide-react';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
 
 const NAV_LINKS = [
@@ -10,7 +10,6 @@ const NAV_LINKS = [
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
-  { label: 'Overview', href: '#overview' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -18,6 +17,8 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+
+  const resumeUrl = PORTFOLIO_DATA.personal.resumeUrl || '/Madhav_Kotak_Resume.pdf';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -100,7 +101,9 @@ export const Navbar: React.FC = () => {
         {/* Right CTA Actions */}
         <div className="hidden md:flex items-center space-x-3">
           <a
-            href="#contact"
+            href={resumeUrl}
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center space-x-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-xl transition-all hover:shadow-sm"
           >
             <FileText className="w-3.5 h-3.5 text-indigo-400" />
@@ -148,7 +151,9 @@ export const Navbar: React.FC = () => {
               ))}
               <div className="pt-4 flex flex-col space-y-2 border-t border-slate-900">
                 <a
-                  href="#contact"
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-center space-x-2 py-2.5 text-sm font-medium text-slate-300 bg-slate-900 border border-slate-800 rounded-xl"
                 >
