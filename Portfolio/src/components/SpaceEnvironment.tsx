@@ -22,6 +22,20 @@ interface AsteroidItem {
   delay: number;
 }
 
+// 3D Cheese Moon Component using the exact image asset extracted from user picture
+export const CheeseMoonSvg: React.FC<{ className?: string }> = ({ className = 'w-full h-full' }) => {
+  return (
+    <div className={`relative filter drop-shadow-[0_14px_45px_rgba(250,204,21,0.5)] ${className}`}>
+      {/* Real Cheese Moon image extracted directly from reference photo */}
+      <img
+        src="/images/cheese-moon.png"
+        alt="Moon"
+        className="w-full h-full object-contain pointer-events-none select-none"
+      />
+    </div>
+  );
+};
+
 export const SpaceEnvironment: React.FC = () => {
   const [shootingStar, setShootingStar] = useState<ShootingStar | null>(null);
   const [asteroids, setAsteroids] = useState<AsteroidItem[]>([]);
@@ -35,14 +49,14 @@ export const SpaceEnvironment: React.FC = () => {
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
 
-    // 4 Persistent Floating Asteroid Rocks matching the 4 reference photo variations
+    // 4 Persistent Floating Asteroid Rocks
     const w = window.innerWidth;
     const h = window.innerHeight;
 
     const initialAsteroids: AsteroidItem[] = [
       {
         id: 1,
-        type: 1, // Heavy Top Crater Asteroid
+        type: 1,
         startX: -70,
         startY: h * 0.22,
         endX: w + 70,
@@ -54,7 +68,7 @@ export const SpaceEnvironment: React.FC = () => {
       },
       {
         id: 2,
-        type: 2, // Multi-Pitted Spherical Asteroid
+        type: 2,
         startX: w + 70,
         startY: h * 0.65,
         endX: -70,
@@ -66,7 +80,7 @@ export const SpaceEnvironment: React.FC = () => {
       },
       {
         id: 3,
-        type: 3, // Deep Central Crater Asteroid
+        type: 3,
         startX: w * 0.12,
         startY: -70,
         endX: w * 0.88,
@@ -78,7 +92,7 @@ export const SpaceEnvironment: React.FC = () => {
       },
       {
         id: 4,
-        type: 4, // Porous Cavity Asteroid
+        type: 4,
         startX: w + 70,
         startY: h * 0.18,
         endX: -70,
@@ -92,7 +106,7 @@ export const SpaceEnvironment: React.FC = () => {
 
     setAsteroids(initialAsteroids);
 
-    // Shooting Star Spawner (triggers every 6 - 12 seconds)
+    // Shooting Star Spawner
     let starTimeout: NodeJS.Timeout;
     const triggerShootingStar = () => {
       const currentW = window.innerWidth;
@@ -117,11 +131,9 @@ export const SpaceEnvironment: React.FC = () => {
     };
   }, []);
 
-  // Render Asteroid SVG matching the 4 variations from reference photo 2
   const renderAsteroidSvg = (type: 1 | 2 | 3 | 4) => {
     switch (type) {
       case 1:
-        // Top-left: Heavy top crater bowl & porous lower surface
         return (
           <svg viewBox="0 0 40 40" className="w-full h-full drop-shadow-2xl" fill="none">
             <path
@@ -130,17 +142,14 @@ export const SpaceEnvironment: React.FC = () => {
               stroke="#64748b"
               strokeWidth="1.2"
             />
-            {/* Big Top Crater Bowl */}
             <ellipse cx="20" cy="12" rx="7" ry="5" fill="#1e293b" stroke="#94a3b8" strokeWidth="1" />
             <ellipse cx="20" cy="11.5" rx="5" ry="3.5" fill="#0f172a" />
-            {/* Porous Small Craters */}
             <circle cx="10" cy="24" r="2.5" fill="#1e293b" stroke="#475569" strokeWidth="0.8" />
             <circle cx="28" cy="22" r="3" fill="#1e293b" stroke="#475569" strokeWidth="0.8" />
             <circle cx="20" cy="29" r="2" fill="#1e293b" stroke="#475569" strokeWidth="0.8" />
           </svg>
         );
       case 2:
-        // Top-right: Multi-pitted spherical asteroid with deep circular cavities
         return (
           <svg viewBox="0 0 40 40" className="w-full h-full drop-shadow-2xl" fill="none">
             <path
@@ -149,7 +158,6 @@ export const SpaceEnvironment: React.FC = () => {
               stroke="#64748b"
               strokeWidth="1.2"
             />
-            {/* Multiple Deep Impact Pits */}
             <circle cx="14" cy="14" r="4.5" fill="#0f172a" stroke="#94a3b8" strokeWidth="1" />
             <circle cx="26" cy="16" r="3.5" fill="#0f172a" stroke="#94a3b8" strokeWidth="1" />
             <circle cx="16" cy="27" r="4" fill="#0f172a" stroke="#64748b" strokeWidth="0.8" />
@@ -157,7 +165,6 @@ export const SpaceEnvironment: React.FC = () => {
           </svg>
         );
       case 3:
-        // Bottom-left: Irregular jagged rock with deep central crater pit
         return (
           <svg viewBox="0 0 40 40" className="w-full h-full drop-shadow-2xl" fill="none">
             <path
@@ -166,17 +173,14 @@ export const SpaceEnvironment: React.FC = () => {
               stroke="#64748b"
               strokeWidth="1.2"
             />
-            {/* Deep Central Crater Pit */}
             <circle cx="22" cy="22" r="6" fill="#0f172a" stroke="#cbd5e1" strokeWidth="1.2" />
             <circle cx="21" cy="21" r="4" fill="#020617" />
-            {/* Secondary Craters */}
             <circle cx="10" cy="14" r="2.5" fill="#1e293b" stroke="#475569" strokeWidth="0.8" />
             <circle cx="12" cy="28" r="2" fill="#1e293b" stroke="#475569" strokeWidth="0.8" />
           </svg>
         );
       case 4:
       default:
-        // Bottom-right: Porous cavity rock with large impact basin
         return (
           <svg viewBox="0 0 40 40" className="w-full h-full drop-shadow-2xl" fill="none">
             <path
@@ -185,9 +189,7 @@ export const SpaceEnvironment: React.FC = () => {
               stroke="#64748b"
               strokeWidth="1.2"
             />
-            {/* Large Bottom Impact Basin */}
             <circle cx="24" cy="25" r="5.5" fill="#0f172a" stroke="#cbd5e1" strokeWidth="1" />
-            {/* Top Pores */}
             <circle cx="14" cy="12" r="3" fill="#1e293b" stroke="#94a3b8" strokeWidth="0.8" />
             <circle cx="28" cy="11" r="2" fill="#1e293b" stroke="#475569" strokeWidth="0.8" />
             <circle cx="10" cy="24" r="2" fill="#1e293b" stroke="#475569" strokeWidth="0.8" />
@@ -210,58 +212,18 @@ export const SpaceEnvironment: React.FC = () => {
         </defs>
       </svg>
 
-      {/* Distant Ambient Nebula Glow Overlays */}
-      <div className="absolute top-0 right-1/4 w-[550px] h-[550px] rounded-full bg-indigo-900/25 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-10 w-[600px] h-[600px] rounded-full bg-cyan-950/25 blur-[150px] pointer-events-none" />
+      {/* Distant Ambient Warm Nebula Glow Overlays */}
+      <div className="absolute top-0 right-1/4 w-[550px] h-[550px] rounded-full bg-amber-950/20 blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-10 w-[600px] h-[600px] rounded-full bg-yellow-950/15 blur-[160px] pointer-events-none" />
 
-      {/* PHOTOREALISTIC FULL MOON (Replica of Reference Photo 1) */}
+      {/* CHEESE MOON (Exact Replica of Reference Photo) */}
       <div
-        className="absolute top-16 right-[4%] sm:right-[7%] w-32 h-32 sm:w-44 sm:h-44 rounded-full pointer-events-none transition-transform duration-300 shadow-[0_0_50px_rgba(226,232,240,0.22)]"
+        className="absolute top-12 right-[4%] sm:right-[8%] w-40 h-40 sm:w-52 sm:h-52 pointer-events-none transition-transform duration-300"
         style={{
           transform: `translateY(${scrollY * 0.05}px)`,
         }}
       >
-        <svg viewBox="0 0 100 100" className="w-full h-full rounded-full">
-          <defs>
-            {/* Lunar Spherical 3D Gradient */}
-            <radialGradient id="moon-base" cx="38%" cy="38%" r="62%">
-              <stop offset="0%" stopColor="#f8fafc" />
-              <stop offset="35%" stopColor="#e2e8f0" />
-              <stop offset="65%" stopColor="#94a3b8" />
-              <stop offset="88%" stopColor="#475569" />
-              <stop offset="100%" stopColor="#1e293b" />
-            </radialGradient>
-          </defs>
-
-          {/* Spherical Moon Base */}
-          <circle cx="50" cy="50" r="49" fill="url(#moon-base)" />
-
-          {/* Dark Lunar Maria Basalt Plains (Matching Reference Photo 1) */}
-          <g opacity="0.45" fill="#334155">
-            {/* Mare Tranquillitatis & Mare Serenitatis */}
-            <path d="M45 18 C58 16, 75 22, 70 38 C65 50, 48 45, 42 36 C38 28, 38 20, 45 18 Z" />
-            {/* Oceanus Procellarum */}
-            <path d="M18 28 C30 25, 38 38, 32 55 C25 68, 12 55, 14 40 Z" />
-            {/* Mare Imbrium */}
-            <circle cx="36" cy="24" r="11" />
-            {/* Mare Nubium & Mare Nectaris */}
-            <circle cx="58" cy="62" r="10" />
-            <circle cx="40" cy="68" r="8" />
-          </g>
-
-          {/* Major Tycho & Copernicus Impact Ray Basins */}
-          <g opacity="0.5">
-            {/* Tycho Crater at southern pole */}
-            <circle cx="52" cy="78" r="2.5" fill="#ffffff" />
-            <path d="M52 78 L35 50 M52 78 L68 55 M52 78 L52 95 M52 78 L25 80" stroke="#ffffff" strokeWidth="0.5" strokeDasharray="1,1" />
-            {/* Copernicus Crater */}
-            <circle cx="34" cy="42" r="2" fill="#ffffff" />
-            <path d="M34 42 L20 30 M34 42 L50 35 M34 42 L28 58" stroke="#ffffff" strokeWidth="0.4" strokeDasharray="1,1" />
-          </g>
-
-          {/* Spherical Shadow Occlusion Overlay */}
-          <circle cx="50" cy="50" r="49" fill="none" stroke="#090d16" strokeWidth="3" opacity="0.6" />
-        </svg>
+        <CheeseMoonSvg />
       </div>
 
       {/* Occasional Shooting Star Streak */}
@@ -287,12 +249,12 @@ export const SpaceEnvironment: React.FC = () => {
               ease: 'easeOut',
             }}
             onAnimationComplete={() => setShootingStar(null)}
-            className="absolute top-0 left-0 w-40 h-[2px] bg-gradient-to-r from-cyan-300 via-indigo-400 to-transparent rounded-full transform rotate-[32deg] origin-left shadow-[0_0_12px_#38bdf8]"
+            className="absolute top-0 left-0 w-40 h-[2px] bg-gradient-to-r from-amber-200 via-yellow-400 to-transparent rounded-full transform rotate-[32deg] origin-left shadow-[0_0_12px_#fde047]"
           />
         )}
       </AnimatePresence>
 
-      {/* PHOTOREALISTIC MOVING CRATERED ASTEROIDS (Matching Reference Photo 2) */}
+      {/* PHOTOREALISTIC MOVING CRATERED ASTEROIDS */}
       {asteroids.map((ast) => (
         <motion.div
           key={ast.id}

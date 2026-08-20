@@ -25,8 +25,8 @@ export const Hero: React.FC<HeroProps> = ({ isRevealed = true }) => {
             className="flex flex-wrap items-center gap-3"
           >
             {/* Eyebrow Tag */}
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 font-mono text-xs font-semibold tracking-widest uppercase backdrop-blur-md shadow-sm">
-              <Shield className="w-3.5 h-3.5 text-indigo-400" />
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-amber-950/30 border border-amber-400/30 text-amber-200 font-mono text-xs font-semibold tracking-widest uppercase backdrop-blur-md shadow-sm">
+              <Shield className="w-3.5 h-3.5 text-amber-300" />
               <span>{personal.eyebrow}</span>
             </div>
 
@@ -46,9 +46,9 @@ export const Hero: React.FC<HeroProps> = ({ isRevealed = true }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-100 leading-[1.15]"
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]"
             >
-              Hi, I&apos;m <span className="space-accent-gradient">{personal.name}</span>.
+              Hi, I&apos;m <span className="space-gradient-text">{personal.name}</span>.
             </motion.h1>
 
             <motion.p
@@ -57,7 +57,7 @@ export const Hero: React.FC<HeroProps> = ({ isRevealed = true }) => {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-lg sm:text-xl text-slate-300 leading-relaxed font-normal max-w-2xl"
             >
-              A software engineer specialized in <span className="text-slate-100 font-medium">DevOps</span>, <span className="text-slate-100 font-medium">cloud infrastructure</span>, <span className="text-slate-100 font-medium">automation</span>, and <span className="text-slate-100 font-medium">security</span>. I build resilient distributed systems, automated CI/CD pipelines, and high-performance applications that scale.
+              A DevOps engineer specialized in <span className="text-amber-100 font-medium">cloud infrastructure</span>, <span className="text-amber-100 font-medium">automation</span>, <span className="text-amber-100 font-medium">security</span>, and <span className="text-amber-100 font-medium">Kubernetes</span>. I build resilient cloud platforms, automated CI/CD pipelines, and high-performance infrastructure that scales.
             </motion.p>
           </div>
 
@@ -70,9 +70,9 @@ export const Hero: React.FC<HeroProps> = ({ isRevealed = true }) => {
           >
             <a
               href="#projects"
-              className="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 text-slate-950 font-semibold text-sm hover:opacity-95 transition-all shadow-lg shadow-indigo-950/50 hover:shadow-indigo-900/60 hover:scale-[1.02] active:scale-[0.98]"
+              className="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-amber-100 hover:bg-white text-slate-950 font-extrabold text-sm transition-all shadow-lg shadow-amber-200/10 hover:shadow-amber-200/20 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Code2 className="w-4 h-4" />
+              <Code2 className="w-4 h-4 text-slate-950" />
               <span>Explore My Work</span>
             </a>
 
@@ -80,7 +80,7 @@ export const Hero: React.FC<HeroProps> = ({ isRevealed = true }) => {
               href="#contact"
               className="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-200 font-semibold text-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              <Send className="w-4 h-4 text-indigo-400" />
+              <Send className="w-4 h-4 text-amber-300" />
               <span>Get In Touch</span>
             </a>
           </motion.div>
@@ -98,7 +98,7 @@ export const Hero: React.FC<HeroProps> = ({ isRevealed = true }) => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub Profile"
-                className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/90 text-slate-400 hover:text-slate-100 hover:border-slate-700 transition-all hover:scale-105"
+                className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/90 text-slate-400 hover:text-amber-200 hover:border-amber-500/40 transition-all hover:scale-105"
               >
                 <GithubIcon className="w-4 h-4" />
               </a>
@@ -107,21 +107,21 @@ export const Hero: React.FC<HeroProps> = ({ isRevealed = true }) => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn Profile"
-                className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/90 text-slate-400 hover:text-slate-100 hover:border-slate-700 transition-all hover:scale-105"
+                className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/90 text-slate-400 hover:text-amber-200 hover:border-amber-500/40 transition-all hover:scale-105"
               >
                 <LinkedinIcon className="w-4 h-4" />
               </a>
               <a
                 href={`mailto:${personal.socials.email}`}
                 aria-label="Email Contact"
-                className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/90 text-slate-400 hover:text-slate-100 hover:border-slate-700 transition-all hover:scale-105"
+                className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800/90 text-slate-400 hover:text-amber-200 hover:border-amber-500/40 transition-all hover:scale-105"
               >
                 <Mail className="w-4 h-4" />
               </a>
             </div>
 
             <div className="flex items-center space-x-2 text-xs font-mono text-slate-400">
-              <Terminal className="w-3.5 h-3.5 text-indigo-400" />
+              <Terminal className="w-3.5 h-3.5 text-amber-300" />
               <span>Kubernetes • Docker • AWS • Terraform • Git / GitHub</span>
             </div>
           </motion.div>

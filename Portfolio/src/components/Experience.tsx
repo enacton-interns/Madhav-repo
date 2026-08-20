@@ -37,11 +37,11 @@ export const Experience: React.FC = () => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* ── Section Header ── */}
         <div className="flex flex-col space-y-2 mb-16">
-          <div className="flex items-center space-x-2 text-xs font-mono text-indigo-400">
-            <Briefcase className="w-4 h-4" />
+          <div className="flex items-center space-x-2 text-xs font-mono text-amber-300">
+            <Briefcase className="w-4 h-4 text-amber-300" />
             <span>// PROFESSIONAL TIMELINE</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold space-gradient-text tracking-tight">
             Mission Log.
           </h2>
           <p className="text-sm text-slate-400 max-w-xl">
@@ -52,7 +52,7 @@ export const Experience: React.FC = () => {
         {/* ── Vertical Timeline Container ── */}
         <div className="relative pl-6 sm:pl-10">
           {/* Thin Vertical Timeline Line */}
-          <div className="absolute left-[9px] sm:left-[15px] top-3 bottom-3 w-px bg-gradient-to-b from-indigo-500/50 via-slate-800 to-slate-900" />
+          <div className="absolute left-[9px] sm:left-[15px] top-3 bottom-3 w-px bg-gradient-to-b from-amber-400/50 via-slate-800 to-slate-900" />
 
           <motion.div
             initial="hidden"
@@ -68,16 +68,16 @@ export const Experience: React.FC = () => {
                 className="relative group"
               >
                 {/* ── Milestone Node Dot (Illuminates on View / Hover) ── */}
-                <div className="absolute -left-[24px] sm:-left-[33px] top-1.5 w-4 h-4 rounded-full bg-slate-950 border-2 border-indigo-500/60 flex items-center justify-center group-hover:border-indigo-400 group-hover:scale-125 group-hover:shadow-[0_0_12px_rgba(129,140,248,0.8)] transition-all duration-300">
-                  <div className="w-1.5 h-1.5 rounded-full bg-indigo-400 group-hover:bg-cyan-300 transition-colors" />
+                <div className="absolute -left-[24px] sm:-left-[33px] top-1.5 w-4 h-4 rounded-full bg-slate-950 border-2 border-amber-400/60 flex items-center justify-center group-hover:border-amber-300 group-hover:scale-125 group-hover:shadow-[0_0_12px_rgba(254,240,138,0.8)] transition-all duration-300">
+                  <div className="w-1.5 h-1.5 rounded-full bg-amber-300 group-hover:bg-amber-200 transition-colors" />
                 </div>
 
                 {/* ── Content Card ── */}
-                <div className="subtle-glow-box rounded-2xl p-6 sm:p-8 space-y-5 border border-slate-800/80 hover:border-indigo-500/30 transition-all duration-300">
+                <div className="subtle-glow-box rounded-2xl p-6 sm:p-8 space-y-5 border border-slate-800/80 hover:border-amber-400/30 transition-all duration-300">
                   {/* Top Metadata Row */}
                   <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800/60">
                     <div>
-                      <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-indigo-950/70 border border-indigo-800/40 text-indigo-300 font-semibold">
+                      <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-amber-950/40 border border-amber-400/30 text-amber-200 font-semibold">
                         {item.company}
                       </span>
                       <h3 className="text-xl font-extrabold text-slate-100 mt-2">
@@ -87,7 +87,7 @@ export const Experience: React.FC = () => {
 
                     <div className="flex items-center space-x-3 text-xs font-mono text-slate-400">
                       <div className="flex items-center space-x-1">
-                        <Calendar className="w-3.5 h-3.5 text-indigo-400" />
+                        <Calendar className="w-3.5 h-3.5 text-amber-300" />
                         <span>{item.period}</span>
                       </div>
                       <div className="flex items-center space-x-1">
@@ -106,7 +106,7 @@ export const Experience: React.FC = () => {
                   {item.achievements && item.achievements.length > 0 && (
                     <div className="space-y-2.5 pt-1">
                       <div className="text-xs font-mono text-slate-500 uppercase tracking-wider flex items-center space-x-1.5">
-                        <Award className="w-3.5 h-3.5 text-indigo-400" />
+                        <Award className="w-3.5 h-3.5 text-amber-300" />
                         <span>Key Achievements & Impact</span>
                       </div>
                       <ul className="space-y-2">

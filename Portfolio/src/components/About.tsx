@@ -59,11 +59,11 @@ export const About: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* ── Section Header ── */}
         <div className="flex flex-col space-y-2 mb-12">
-          <div className="flex items-center space-x-2 text-xs font-mono text-indigo-400">
-            <Crosshair className="w-4 h-4" />
+          <div className="flex items-center space-x-2 text-xs font-mono text-amber-300">
+            <Crosshair className="w-4 h-4 text-amber-300" />
             <span>// MISSION PROFILE</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-100 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold space-gradient-text tracking-tight">
             Mission Profile.
           </h2>
         </div>
@@ -94,7 +94,7 @@ export const About: React.FC = () => {
                 <div>
                   <div className="text-xs font-mono text-slate-500">Location</div>
                   <div className="flex items-center space-x-1.5 mt-0.5">
-                    <MapPin className="w-3.5 h-3.5 text-indigo-400" />
+                    <MapPin className="w-3.5 h-3.5 text-amber-300" />
                     <span className="text-sm font-semibold text-slate-200">{personal.location}</span>
                   </div>
                 </div>

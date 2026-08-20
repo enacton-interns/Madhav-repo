@@ -48,47 +48,47 @@ export const Navbar: React.FC = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'bg-slate-950/80 backdrop-blur-md border-b border-slate-800/60 shadow-lg shadow-black/20 py-3'
+          ? 'bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl shadow-black/40 py-3.5'
           : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        {/* Brand logo */}
+        {/* Brand logo & role */}
         <a
           href="#hero"
-          className="group flex items-center space-x-2.5 focus:outline-none"
+          className="group flex items-center space-x-3 focus:outline-none"
           aria-label="Madhav Kotak Home"
         >
-          <div className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-indigo-400 font-bold text-sm group-hover:border-indigo-500/50 group-hover:shadow-md group-hover:shadow-indigo-950/50 transition-all">
+          <div className="w-10 h-10 rounded-xl bg-slate-900/90 border border-slate-700/80 flex items-center justify-center text-amber-300 font-extrabold text-sm group-hover:border-amber-400/60 group-hover:shadow-[0_0_15px_rgba(254,240,138,0.2)] transition-all">
             MK
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold tracking-tight text-slate-100 group-hover:text-indigo-300 transition-colors">
+            <span className="text-base sm:text-lg font-bold tracking-tight text-slate-100 group-hover:text-amber-200 transition-colors">
               {PORTFOLIO_DATA.personal.name}
             </span>
-            <span className="text-[10px] font-mono text-slate-400 flex items-center">
+            <span className="text-xs font-mono text-amber-300/90 font-medium flex items-center">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse" />
-              Software Engineer
+              DevOps Engineer
             </span>
           </div>
         </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1 bg-slate-900/60 border border-slate-800/80 rounded-full px-4 py-1.5 backdrop-blur-sm">
+        {/* Desktop Navigation Link Floating Capsule */}
+        <nav className="hidden md:flex items-center space-x-1.5 bg-slate-900/80 border border-slate-800/90 rounded-full px-5 py-2 backdrop-blur-md shadow-lg shadow-black/30">
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.href.substring(1);
             return (
               <a
                 key={link.href}
                 href={link.href}
-                className={`relative px-3 py-1.5 text-xs font-medium rounded-full transition-colors ${
-                  isActive ? 'text-indigo-300' : 'text-slate-400 hover:text-slate-200'
+                className={`relative px-4 py-1.5 text-sm font-semibold rounded-full transition-all duration-200 ${
+                  isActive ? 'text-amber-200' : 'text-slate-300 hover:text-white'
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId="activeNavIndicator"
-                    className="absolute inset-0 rounded-full bg-indigo-950/80 border border-indigo-500/30"
+                    className="absolute inset-0 rounded-full bg-amber-950/60 border border-amber-400/40 shadow-[0_0_12px_rgba(254,240,138,0.15)]"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -98,22 +98,22 @@ export const Navbar: React.FC = () => {
           })}
         </nav>
 
-        {/* Right CTA Actions */}
-        <div className="hidden md:flex items-center space-x-3">
+        {/* Right Action CTAs */}
+        <div className="hidden md:flex items-center space-x-3.5">
           <a
             href={resumeUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center space-x-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-900 border border-slate-800 hover:border-slate-700 px-3.5 py-2 rounded-xl transition-all hover:shadow-sm"
+            className="inline-flex items-center space-x-2 text-xs sm:text-sm font-semibold text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-amber-400/40 px-4 py-2.5 rounded-xl transition-all shadow-sm"
           >
-            <FileText className="w-3.5 h-3.5 text-indigo-400" />
+            <FileText className="w-4 h-4 text-amber-300" />
             <span>Resume</span>
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center space-x-1.5 text-xs font-medium text-slate-950 bg-gradient-to-r from-indigo-400 via-violet-400 to-cyan-400 hover:from-indigo-300 hover:to-cyan-300 px-4 py-2 rounded-xl transition-all shadow-md shadow-indigo-950/40 hover:shadow-indigo-900/60 font-semibold"
+            className="inline-flex items-center space-x-2 text-xs sm:text-sm font-extrabold text-slate-950 bg-amber-100 hover:bg-white px-5 py-2.5 rounded-xl transition-all shadow-md shadow-amber-200/10 hover:shadow-amber-200/25 hover:scale-[1.02] active:scale-[0.98]"
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-4 h-4 text-slate-950" />
             <span>Contact</span>
           </a>
         </div>
@@ -121,10 +121,10 @@ export const Navbar: React.FC = () => {
         {/* Mobile Menu Toggle Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
+          className="md:hidden p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white focus:outline-none"
           aria-label="Toggle Navigation Menu"
         >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileMenuOpen ? <X className="w-5 h-5 text-amber-300" /> : <Menu className="w-5 h-5 text-amber-300" />}
         </button>
       </div>
 
@@ -144,28 +144,28 @@ export const Navbar: React.FC = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-2.5 text-sm font-medium text-slate-300 hover:text-indigo-400 hover:bg-slate-900 rounded-xl transition-all"
+                  className="px-4 py-3 text-base font-semibold text-slate-200 hover:text-amber-300 hover:bg-slate-900/80 rounded-xl transition-all"
                 >
                   {link.label}
                 </a>
               ))}
-              <div className="pt-4 flex flex-col space-y-2 border-t border-slate-900">
+              <div className="pt-4 flex flex-col space-y-2.5 border-t border-slate-900">
                 <a
                   href={resumeUrl}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center space-x-2 py-2.5 text-sm font-medium text-slate-300 bg-slate-900 border border-slate-800 rounded-xl"
+                  className="flex items-center justify-center space-x-2 py-3 text-sm font-semibold text-slate-200 bg-slate-900 border border-slate-800 rounded-xl"
                 >
-                  <FileText className="w-4 h-4 text-indigo-400" />
+                  <FileText className="w-4 h-4 text-amber-300" />
                   <span>Resume / CV</span>
                 </a>
                 <a
                   href="#contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-center space-x-2 py-2.5 text-sm font-semibold text-slate-950 bg-gradient-to-r from-indigo-400 to-cyan-400 rounded-xl"
+                  className="flex items-center justify-center space-x-2 py-3 text-sm font-extrabold text-slate-950 bg-amber-100 hover:bg-white rounded-xl shadow-md"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-4 h-4 text-slate-950" />
                   <span>Get in Touch</span>
                 </a>
               </div>
