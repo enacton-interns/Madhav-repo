@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { AstronautLottie } from './AstronautLottie';
 
 interface OpeningLoaderProps {
   onComplete: () => void;
@@ -12,10 +13,11 @@ export const OpeningLoader: React.FC<OpeningLoaderProps> = ({
   onComplete,
   onShutterOpen,
 }) => {
-  const [phase, setPhase] = useState<'interactive' | 'unlocking' | 'recoiling' | 'done'>(
-    'interactive'
-  );
+  const [isShutterOpen, setIsShutterOpen] = useState(false);
+  const [isUnlocking, setIsUnlocking] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  const hasLaunchedRef = useRef(false);
 
   // Ultra-Smooth 60 FPS RAF Physics State for Astronaut
   const astroStateRef = useRef({
@@ -70,14 +72,13 @@ export const OpeningLoader: React.FC<OpeningLoaderProps> = ({
         const el = astroElementRef.current;
 
         if (state.isRecoiling) {
-          // Exponential damping + ultra-smooth parabolic zero-g arc (100% solid opacity, 0 fading)
+          // Smooth zero-g trajectory towards deep space
           state.x += state.vx;
           state.y += state.vy;
-          state.vx *= 0.994; // Soft airless zero-g resistance
-          state.vy += 0.18; // Ultra-smooth parabolic arc
+          state.vx *= 0.994;
+          state.vy -= 0.15; // Fluid upward trajectory towards deep space
           state.rotation += state.spinSpeed;
-          state.scale = Math.max(0.25, state.scale * 0.992);
-          state.opacity = 1; // Always 100% solid throughout flight
+          state.scale = Math.max(0.12, state.scale * 0.985); // Shrinks into deep space
         } else {
           // Fluid zero-g lerp follow mouse cursor
           state.x += (state.targetX - state.x) * 0.07;
@@ -85,8 +86,7 @@ export const OpeningLoader: React.FC<OpeningLoaderProps> = ({
         }
 
         if (el) {
-          el.style.transform = `translate3d(${state.x - 24}px, ${state.y - 24}px, 0px) rotate(${state.rotation}deg) scale(${state.scale})`;
-          el.style.opacity = `${state.opacity}`;
+          el.style.transform = `translate3d(${state.x - 40}px, ${state.y - 40}px, 0px) rotate(${state.rotation}deg) scale(${state.scale})`;
         }
 
         animationFrameId = requestAnimationFrame(loop);
@@ -101,56 +101,50 @@ export const OpeningLoader: React.FC<OpeningLoaderProps> = ({
     }
   }, [onShutterOpen, onComplete]);
 
-  // Handle Control Console Launch Click
+  // Handle Control Console Launch Click (Single, Smooth, Non-Repeating Trigger)
   const handleLaunch = () => {
-    if (phase !== 'interactive') return;
+    if (hasLaunchedRef.current) return;
+    hasLaunchedRef.current = true;
 
-    setPhase('unlocking');
+    setIsUnlocking(true);
 
-    // Trigger silky-smooth initial impulse for astronaut recoil in RAF physics engine
+    // Apply single fluid impulse to astronaut recoil toward deep space
     const state = astroStateRef.current;
     state.isRecoiling = true;
-    state.vx = 9.5;
-    state.vy = -13.5;
-    state.spinSpeed = 5.5; // Steady, fluid 5.5deg/frame rotational tumble
+    state.vx = 8.5;
+    state.vy = -16.5;
+    state.spinSpeed = 5.5;
 
-    setTimeout(() => {
-      setPhase('recoiling');
-      onShutterOpen(); // Triggers website launch & hero reveal
-    }, 450);
+    // Trigger website reveal & single shutter slide-up
+    setIsShutterOpen(true);
+    onShutterOpen();
 
+    // Complete loader unmount cleanly after single slide-up finishes (1.8s)
     setTimeout(() => {
-      setPhase('done');
       onComplete();
-    }, 2700);
+    }, 1800);
   };
 
-  if (reducedMotion || phase === 'done') return null;
-
-  const isShutterOpen = phase === 'recoiling';
-  const isUnlocking = phase === 'unlocking';
+  if (reducedMotion) return null;
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden select-none font-sans cursor-default">
-      {/* Industrial Metallic Roller Shutter Door (Replica of Reference Image) */}
+      {/* Industrial Metallic Roller Shutter Door (Single Smooth Slide Up) */}
       <motion.div
         initial={{ y: '0%' }}
         animate={{ y: isShutterOpen ? '-100%' : '0%' }}
         transition={{
-          duration: 2.2,
-          ease: [0.77, 0, 0.175, 1], // Smooth industrial roller shutter slide UP
+          duration: 1.6,
+          ease: [0.22, 1, 0.36, 1], // Smooth cubic bezier easeOutExpo slide UP
         }}
         className="absolute inset-0 bg-slate-950 flex flex-col justify-between border-b-8 border-slate-700 shadow-[0_30px_100px_rgba(0,0,0,0.95)] z-40 pointer-events-auto"
       >
-        {/* TOP CYLINDRICAL ROLLER DRUM SPOOL & HUD BAR */}
+        {/* TOP SPOOL HOUSING & HUD BAR */}
         <div className="relative z-30 w-full bg-gradient-to-b from-slate-800 via-slate-900 to-slate-950 border-b-4 border-slate-700 shadow-2xl flex flex-col items-center pt-4 pb-3 px-6">
-          {/* Cylindrical Spool Housing */}
           <div className="w-full max-w-5xl h-10 sm:h-14 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 border-2 border-slate-600 shadow-inner flex items-center justify-between px-6 relative overflow-hidden">
-            {/* Horizontal Spool Ridge Lines */}
             <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none" />
             <div className="w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
-            {/* Top Telemetry Display */}
-            <div className="px-4 py-1 rounded bg-slate-950/90 border border-slate-700 text-[10px] sm:text-xs font-mono font-bold text-cyan-300 tracking-widest uppercase">
+            <div className="px-4 py-1 rounded bg-slate-950/90 border border-slate-700 text-[10px] sm:text-xs font-mono font-bold text-amber-300 tracking-widest uppercase">
               INDUSTRIAL AIRLOCK // ROLLER SHUTTER v5.0
             </div>
             <div className="w-3 h-3 rounded-full bg-amber-400 animate-ping" />
@@ -159,7 +153,6 @@ export const OpeningLoader: React.FC<OpeningLoaderProps> = ({
 
         {/* CENTER SLATTED STEEL ROLLER BLIND PANEL */}
         <div className="relative flex-1 w-full bg-slate-950 overflow-hidden flex flex-col justify-center items-center">
-          {/* Slatted Horizontal Steel Roller Blind Texture */}
           <div
             className="absolute inset-0 opacity-90"
             style={{
@@ -170,42 +163,29 @@ export const OpeningLoader: React.FC<OpeningLoaderProps> = ({
 
           {/* LEFT & RIGHT VERTICAL COLUMNS WITH AMBER LED LIGHT STRIPS */}
           <div className="absolute top-0 bottom-0 left-0 w-12 sm:w-20 bg-slate-900 border-r-4 border-slate-700 flex flex-col justify-between py-6 px-2 z-20 shadow-2xl">
-            {/* Vertical Glowing Amber LED Strip */}
             <div className="w-2.5 h-full mx-auto bg-amber-500 rounded-full shadow-[0_0_15px_#f59e0b] animate-pulse" />
           </div>
 
           <div className="absolute top-0 bottom-0 right-0 w-12 sm:w-20 bg-slate-900 border-l-4 border-slate-700 flex flex-col justify-between py-6 px-2 z-20 shadow-2xl">
-            {/* Vertical Glowing Amber LED Strip */}
             <div className="w-2.5 h-full mx-auto bg-amber-500 rounded-full shadow-[0_0_15px_#f59e0b] animate-pulse" />
-          </div>
-
-          {/* SIDE DIGITAL CONTROL BOX (Left Pillar) */}
-          <div className="absolute left-14 sm:left-24 top-1/2 -translate-y-1/2 z-30 hidden sm:flex flex-col items-center p-3 rounded-2xl bg-slate-900 border-2 border-slate-700 shadow-2xl space-y-2">
-            <div className="w-16 h-8 rounded bg-slate-950 border border-slate-800 flex items-center justify-center font-mono text-[9px] text-cyan-400 font-bold">
-              {isUnlocking ? 'OPEN' : 'LOCKED'}
-            </div>
-            <div className="text-amber-500 font-bold text-xs">▲</div>
           </div>
 
           {/* CENTER LAUNCH CONTROL TERMINAL */}
           <div className="relative z-30 flex flex-col items-center">
-            {/* Shockwave Blast Ring */}
             {isUnlocking && (
               <motion.div
                 initial={{ scale: 0.3, opacity: 1 }}
                 animate={{ scale: 6, opacity: 0 }}
-                transition={{ duration: 1.2, ease: 'easeOut' }}
-                className="absolute -top-6 w-24 h-24 rounded-full border-4 border-cyan-400 bg-cyan-400/40 blur-md pointer-events-none"
+                transition={{ duration: 1.0, ease: 'easeOut' }}
+                className="absolute -top-6 w-24 h-24 rounded-full border-4 border-amber-400 bg-amber-400/40 blur-md pointer-events-none"
               />
             )}
 
-            {/* Tactile Control Console Box */}
             <div className="relative flex flex-col items-center p-5 rounded-3xl bg-slate-900/95 border-2 border-slate-700 shadow-2xl backdrop-blur-md space-y-3">
               <div className="text-[11px] font-mono font-bold tracking-widest text-slate-300 uppercase">
                 {isUnlocking ? 'UNROLLING SHUTTER...' : 'PRIMARY LAUNCH CONSOLE'}
               </div>
 
-              {/* Glowing Tactile Launch Button */}
               <button
                 onClick={handleLaunch}
                 aria-label="Roll Shutter Up"
@@ -216,13 +196,13 @@ export const OpeningLoader: React.FC<OpeningLoaderProps> = ({
                   whileTap={{ scale: 0.9 }}
                   animate={{
                     boxShadow: isUnlocking
-                      ? '0 0 50px rgba(56, 189, 248, 1)'
+                      ? '0 0 50px rgba(250, 204, 21, 1)'
                       : '0 0 20px rgba(245, 158, 11, 0.5)',
                   }}
                   className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center border-2 transition-all ${
                     isUnlocking
-                      ? 'bg-cyan-400 border-white text-slate-950'
-                      : 'bg-slate-950 border-amber-500/80 text-amber-400 group-hover:border-cyan-400 group-hover:bg-slate-900'
+                      ? 'bg-amber-300 border-white text-slate-950'
+                      : 'bg-slate-950 border-amber-500/80 text-amber-400 group-hover:border-amber-300 group-hover:bg-slate-900'
                   }`}
                 >
                   <div
@@ -236,76 +216,23 @@ export const OpeningLoader: React.FC<OpeningLoaderProps> = ({
           </div>
         </div>
 
-        {/* BOTTOM FLOOR THRESHOLD PLATE WITH HAZARD STRIPES */}
+        {/* BOTTOM FLOOR THRESHOLD PLATE */}
         <div className="relative z-30 w-full bg-slate-900 border-t-4 border-slate-700 py-3 sm:py-4 px-6 flex flex-col items-center justify-center shadow-2xl">
           <div className="w-full max-w-xl h-3.5 rounded bg-[linear-gradient(135deg,#f59e0b_25%,#0f172a_25%,#0f172a_50%,#f59e0b_50%,#f59e0b_75%,#0f172a_75%)] bg-[length:20px_20px] border border-slate-700 shadow-inner" />
-          {!isUnlocking && !isShutterOpen && (
-            <div className="mt-2 text-[10px] font-mono text-cyan-300 font-bold tracking-wider animate-pulse">
+          {!isUnlocking && (
+            <div className="mt-2 text-[10px] font-mono text-amber-300 font-bold tracking-wider animate-pulse">
               CLICK BUTTON TO ROLL SHUTTER UP & LAUNCH WEBSITE
             </div>
           )}
         </div>
       </motion.div>
 
-      {/* 60 FPS Physics Astronaut Element (Zero-Lag RAF Physics Translation & Rotation) */}
+      {/* 60 FPS Physics Lottie Astronaut Element */}
       <div
         ref={astroElementRef}
-        className="absolute top-0 left-0 z-50 w-12 h-12 flex items-center justify-center pointer-events-none will-change-transform"
+        className="absolute top-0 left-0 z-50 w-20 h-20 flex items-center justify-center pointer-events-none will-change-transform"
       >
-        <svg
-          className="w-12 h-12 text-slate-100 drop-shadow-2xl"
-          viewBox="0 0 64 64"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          {/* Thruster Particle Flame Stream */}
-          <motion.g
-            animate={{ opacity: [0.6, 1, 0.6], scale: [0.9, 1.1, 0.9] }}
-            transition={{ repeat: Infinity, duration: 0.12 }}
-          >
-            <path d="M6 32 L-4 35 L6 38 Z" fill="#38bdf8" />
-            <circle cx="-6" cy="35" r="2.5" fill="#67e8f9" />
-          </motion.g>
-
-          {/* Backpack Tank */}
-          <rect x="12" y="22" width="7" height="22" rx="3.5" fill="#334155" />
-          <rect x="14" y="26" width="3" height="6" rx="1.5" fill="#64748b" />
-
-          {/* Suit Torso */}
-          <rect x="18" y="24" width="26" height="22" rx="8" fill="#f8fafc" />
-          <rect x="25" y="30" width="12" height="10" rx="3" fill="#0f172a" />
-          <circle
-            cx="29"
-            cy="35"
-            r="2"
-            fill={phase === 'unlocking' ? '#38bdf8' : '#818cf8'}
-          />
-          <circle cx="35" cy="35" r="1.5" fill="#34d399" />
-
-          {/* Helmet & Visor */}
-          <rect
-            x="20"
-            y="8"
-            width="22"
-            height="20"
-            rx="10"
-            fill="#1e293b"
-            stroke="#475569"
-            strokeWidth="1.5"
-          />
-          <path
-            d="M24 13 Q31 9 38 13 C37 21 26 21 24 13 Z"
-            fill={phase === 'unlocking' ? '#38bdf8' : '#818cf8'}
-            opacity={0.9}
-          />
-
-          {/* Arms & Legs */}
-          <path d="M38 32 L46 36" stroke="#f8fafc" strokeWidth="4.5" strokeLinecap="round" />
-          <g>
-            <rect x="22" y="44" width="7" height="14" rx="3.5" fill="#cbd5e1" />
-            <rect x="33" y="44" width="7" height="14" rx="3.5" fill="#94a3b8" />
-          </g>
-        </svg>
+        <AstronautLottie className="w-20 h-20" />
       </div>
     </div>
   );

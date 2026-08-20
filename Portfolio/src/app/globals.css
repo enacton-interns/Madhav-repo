@@ -16,13 +16,14 @@
 
 /* Custom space visual tokens & utilities */
 .space-gradient-text {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fef3c7 50%, #fde68a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(254, 240, 138, 0.15);
 }
 
 .space-accent-gradient {
-  background: linear-gradient(135deg, #fffbeb 0%, #fef08a 50%, #fde68a 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #fef08a 50%, #fde68a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

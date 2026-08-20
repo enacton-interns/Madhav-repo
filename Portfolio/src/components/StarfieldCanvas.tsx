@@ -152,26 +152,21 @@ export const StarfieldCanvas: React.FC = () => {
       ctx.fillStyle = radialGradient;
       ctx.fillRect(0, 0, width, height);
 
-      // Calculate Z velocity:
-      // Base ambient drift: moves away into deep space (+1.2 Z speed)
-      // Scroll Down (currentScrollVel > 0): Traveler moves forward -> stars zoom TOWARDS you (-Z speed)
-      // Scroll Up (currentScrollVel < 0): Traveler moves backward -> stars zoom AWAY from you (+Z speed)
+      // Calculate Z velocity
       const zSpeed = 1.2 - currentScrollVel * 5.0;
 
       stars.forEach((star) => {
         // Update 3D depth
         star.z += zSpeed;
 
-        // Respawn wrap bounds:
+        // Respawn wrap bounds
         if (star.z > MAX_Z) {
-          // Moved too far into deep space -> respawn near camera
           star.z = 10;
           star.x = (Math.random() - 0.5) * width * 1.5;
           star.y = (Math.random() - 0.5) * height * 1.5;
           star.px = centerX + (star.x / star.z) * FOV;
           star.py = centerY + (star.y / star.z) * FOV;
         } else if (star.z < 1) {
-          // Reached/passed camera -> respawn deep in space
           star.z = MAX_Z;
           star.x = (Math.random() - 0.5) * width * 2;
           star.y = (Math.random() - 0.5) * height * 2;
@@ -183,7 +178,6 @@ export const StarfieldCanvas: React.FC = () => {
         const screenX = centerX + (star.x / star.z) * FOV;
         const screenY = centerY + (star.y / star.z) * FOV;
 
-        // Depth scale factor: 1 at camera (z=1), 0 at deep horizon (z=MAX_Z)
         const depthFactor = Math.max(0, 1 - star.z / MAX_Z);
         const currentSize = Math.max(0.4, depthFactor * 3.5 * star.size);
 
@@ -200,7 +194,6 @@ export const StarfieldCanvas: React.FC = () => {
         const speedMagnitude = Math.abs(zSpeed);
 
         if (speedMagnitude > 3.0) {
-          // HIGH SPEED -> Render Radial Light Ray / Streak!
           ctx.save();
           ctx.globalAlpha = Math.max(0.2, effectiveAlpha);
           ctx.strokeStyle = star.color;
@@ -212,13 +205,11 @@ export const StarfieldCanvas: React.FC = () => {
           ctx.lineTo(screenX, screenY);
           ctx.stroke();
 
-          // Outer glowing streak line
           ctx.shadowBlur = Math.min(16, speedMagnitude * 1.5);
           ctx.shadowColor = star.color;
           ctx.stroke();
           ctx.restore();
         } else {
-          // NORMAL / AMBIENT SPEED -> Render 3D Projected Star Point
           ctx.save();
           ctx.globalAlpha = effectiveAlpha;
           ctx.fillStyle = star.color;
@@ -234,7 +225,6 @@ export const StarfieldCanvas: React.FC = () => {
           ctx.restore();
         }
 
-        // Store current screen coordinates as previous for next frame streak
         star.px = screenX;
         star.py = screenY;
       });
@@ -261,4 +251,3 @@ export const StarfieldCanvas: React.FC = () => {
     />
   );
 };
-

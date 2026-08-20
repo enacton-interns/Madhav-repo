@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, Code2, Shield, Terminal, Send, Mail } from 'lucide-react';
+import { ArrowDown, Code2, Shield, Terminal, Send, Mail, FileText, ExternalLink } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
 

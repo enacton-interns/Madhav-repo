@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import {
-  Rocket,
+  FolderGit2,
   ExternalLink,
   Calendar,
   ChevronRight,
@@ -33,18 +33,14 @@ export const Projects: React.FC = () => {
   const { projects } = PORTFOLIO_DATA;
 
   return (
-    <section id="projects" className="relative py-24 z-10 border-t border-slate-900">
+    <section id="projects" className="relative py-24 z-10 bg-transparent">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* ── Section Header ── */}
-        <div className="flex flex-col space-y-2 mb-14">
-          <div className="flex items-center space-x-2 text-xs font-mono text-amber-300">
-            <Rocket className="w-4 h-4 text-amber-300" />
-            <span>// SELECTED MISSIONS</span>
-          </div>
+        <div className="flex flex-col space-y-2 mb-10">
           <h2 className="text-3xl sm:text-4xl font-extrabold space-gradient-text tracking-tight">
-            Selected Missions.
+            Selected Missions
           </h2>
-          <p className="text-sm text-slate-400 max-w-xl">
+          <p className="text-sm sm:text-base text-slate-200 max-w-xl font-normal leading-relaxed">
             Real-world projects built with cloud infrastructure, container orchestration, and DevSecOps best practices.
           </p>
         </div>

@@ -33,33 +33,29 @@ export const Experience: React.FC = () => {
   const { experience } = PORTFOLIO_DATA;
 
   return (
-    <section id="experience" className="relative py-24 z-10 border-t border-slate-900 bg-slate-950/40">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <section id="experience" className="relative py-24 z-10 bg-transparent">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* ── Section Header ── */}
-        <div className="flex flex-col space-y-2 mb-16">
-          <div className="flex items-center space-x-2 text-xs font-mono text-amber-300">
-            <Briefcase className="w-4 h-4 text-amber-300" />
-            <span>// PROFESSIONAL TIMELINE</span>
-          </div>
+        <div className="flex flex-col space-y-2 mb-12">
           <h2 className="text-3xl sm:text-4xl font-extrabold space-gradient-text tracking-tight">
-            Mission Log.
+            Professional Timeline
           </h2>
-          <p className="text-sm text-slate-400 max-w-xl">
+          <p className="text-sm sm:text-base text-slate-200 max-w-xl font-normal leading-relaxed">
             A chronological timeline of engineering roles, core projects, education, and technical achievements.
           </p>
         </div>
 
-        {/* ── Vertical Timeline Container ── */}
-        <div className="relative pl-6 sm:pl-10">
+        {/* ── Vertical Timeline Container (Aligned flush with max-w-6xl header) ── */}
+        <div className="relative pl-4 sm:pl-6">
           {/* Thin Vertical Timeline Line */}
-          <div className="absolute left-[9px] sm:left-[15px] top-3 bottom-3 w-px bg-gradient-to-b from-amber-400/50 via-slate-800 to-slate-900" />
+          <div className="absolute left-0 sm:left-1 top-3 bottom-3 w-px bg-gradient-to-b from-amber-400/50 via-slate-800 to-slate-900" />
 
           <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: '-60px' }}
             variants={containerVariants}
-            className="space-y-12"
+            className="space-y-10"
           >
             {experience.map((item: ExperienceItem) => (
               <motion.div
@@ -68,8 +64,8 @@ export const Experience: React.FC = () => {
                 className="relative group"
               >
                 {/* ── Milestone Node Dot (Illuminates on View / Hover) ── */}
-                <div className="absolute -left-[24px] sm:-left-[33px] top-1.5 w-4 h-4 rounded-full bg-slate-950 border-2 border-amber-400/60 flex items-center justify-center group-hover:border-amber-300 group-hover:scale-125 group-hover:shadow-[0_0_12px_rgba(254,240,138,0.8)] transition-all duration-300">
-                  <div className="w-1.5 h-1.5 rounded-full bg-amber-300 group-hover:bg-amber-200 transition-colors" />
+                <div className="absolute -left-[18px] sm:-left-[22px] top-2.5 w-3.5 h-3.5 rounded-full bg-slate-950 border-2 border-amber-400/60 flex items-center justify-center group-hover:border-amber-300 group-hover:scale-125 group-hover:shadow-[0_0_12px_rgba(254,240,138,0.8)] transition-all duration-300">
+                  <div className="w-1 h-1 rounded-full bg-amber-300 group-hover:bg-amber-200 transition-colors" />
                 </div>
 
                 {/* ── Content Card ── */}

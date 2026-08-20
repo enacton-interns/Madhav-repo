@@ -13,14 +13,13 @@ import { Projects } from '@/components/Projects';
 import { Experience } from '@/components/Experience';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
-import { ScrollRocket } from '@/components/ScrollRocket';
 
 export default function Home() {
   const [loaderComplete, setLoaderComplete] = useState(false);
   const [shutterOpened, setShutterOpened] = useState(false);
 
   return (
-    <main className="relative min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500 selection:text-white overflow-x-hidden">
+    <main className="relative min-h-screen bg-slate-950 text-slate-100 selection:bg-amber-500 selection:text-slate-950 overflow-x-hidden">
       {/* Astronaut Airlock Opening Animation */}
       {!loaderComplete && (
         <OpeningLoader
@@ -46,7 +45,6 @@ export default function Home() {
         }`}
       >
         <Navbar />
-        <ScrollRocket />
         <Hero isRevealed={shutterOpened} />
         <About />
         <Skills />

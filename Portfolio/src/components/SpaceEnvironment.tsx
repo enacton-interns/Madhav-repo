@@ -199,7 +199,7 @@ export const SpaceEnvironment: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[2] overflow-hidden select-none">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none">
       {/* SVG Shading Gradients */}
       <svg className="absolute w-0 h-0 pointer-events-none">
         <defs>
@@ -216,7 +216,7 @@ export const SpaceEnvironment: React.FC = () => {
       <div className="absolute top-0 right-1/4 w-[550px] h-[550px] rounded-full bg-amber-950/20 blur-[140px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-10 w-[600px] h-[600px] rounded-full bg-yellow-950/15 blur-[160px] pointer-events-none" />
 
-      {/* CHEESE MOON (Exact Replica of Reference Photo) */}
+      {/* CHEESE MOON */}
       <div
         className="absolute top-12 right-[4%] sm:right-[8%] w-40 h-40 sm:w-52 sm:h-52 pointer-events-none transition-transform duration-300"
         style={{

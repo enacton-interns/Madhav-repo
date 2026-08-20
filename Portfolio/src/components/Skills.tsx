@@ -22,18 +22,14 @@ export const Skills: React.FC = () => {
   const { skills } = PORTFOLIO_DATA;
 
   return (
-    <section id="skills" className="relative py-24 z-10 border-t border-slate-900 bg-slate-950/40">
+    <section id="skills" className="relative py-24 z-10 bg-transparent">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* ── Section Header ── */}
-        <div className="flex flex-col space-y-2 mb-14">
-          <div className="flex items-center space-x-2 text-xs font-mono text-slate-400 tracking-wider">
-            <Terminal className="w-4 h-4 text-slate-300" />
-            <span>// TECHNICAL MATRIX & SYSTEM CAPABILITIES</span>
-          </div>
+        <div className="flex flex-col space-y-2 mb-10">
           <h2 className="text-3xl sm:text-4xl font-extrabold space-gradient-text tracking-tight">
-            Engineering stack & core tools.
+            Technical Matrix & System Capabilities
           </h2>
-          <p className="text-sm text-slate-400 max-w-xl">
+          <p className="text-sm sm:text-base text-slate-200 max-w-xl font-normal leading-relaxed">
             Clean architectural breakdown of technologies used for cloud infrastructure, automation, security, and backend systems.
           </p>
         </div>

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Send, Copy, Check, Sparkles, MapPin } from 'lucide-react';
+import { Mail, Send, Copy, Check, Sparkles, MapPin, FileText, Code2 } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './SocialIcons';
 import confetti from 'canvas-confetti';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
@@ -49,23 +49,14 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="relative py-28 z-10 border-t border-slate-900 overflow-hidden">
-      {/* 3D Cheese Moon near the horizon */}
-      <div className="absolute right-[4%] bottom-[6%] w-52 h-52 pointer-events-none opacity-30 hidden lg:block">
-        <CheeseMoonSvg />
-      </div>
-
+    <section id="contact" className="relative py-28 z-10 bg-transparent overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col space-y-3 mb-14">
-          <div className="flex items-center space-x-2 text-xs font-mono text-amber-300 tracking-wider">
-            <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>// COMM CHANNEL</span>
-          </div>
+        <div className="flex flex-col space-y-3 mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold space-gradient-text tracking-tight">
             Ready for the next mission?
           </h2>
-          <p className="text-base text-slate-400 max-w-2xl leading-relaxed">
+          <p className="text-base text-slate-200 max-w-2xl leading-relaxed font-normal">
             Whether you&apos;re looking to discuss a cloud engineering role, infrastructure automation, DevSecOps pipelines, or technical collaboration, my inbox is always open.
           </p>
         </div>
@@ -137,7 +128,7 @@ export const Contact: React.FC = () => {
                   rel="noreferrer"
                   className="flex-1 flex items-center justify-center space-x-2 py-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400/40 text-slate-300 hover:text-amber-200 transition-all text-xs font-medium"
                 >
-                  <LinkedinIcon className="w-4 h-4 text-amber-300" />
+                  <LinkedinIcon className="w-4 h-4" />
                   <span>LinkedIn</span>
                 </a>
               </div>
