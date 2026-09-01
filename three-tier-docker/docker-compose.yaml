@@ -1,13 +1,13 @@
 services:
   frontend:
-    build: ./frontend
+    image: madhavkotak23/three-tier-docker-frontend:latest 
     ports:
       - "8089:80"
     depends_on:
       - backend
 
   backend:
-    build: ./backend
+    image: madhavkotak23/three-tier-docker-backend:latest
     environment:
       DB_HOST: database
       DB_PORT: 5432
@@ -27,4 +27,4 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
 volumes:
-  - postgres_data:
+  postgres_data:
