@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3 Tier Docker App</title>
+</head>
+<body>
+    <h1>3-Tier Docker Application</h1>
+
+    <button onclick="getMessage()">Get Message</button>
+
+    <p id="result"></p>
+
+    <script>
+        async function getMessage() {
+            const response = await fetch("/api/message");
+            const data = await response.json();
+
+            document.getElementById("result").innerText = data.message;
+        }
+    </script>
+</body>
+</html>
